@@ -36,7 +36,7 @@ namespace WampSharp.V2.Client
             mFormatter = formatter;
         }
 
-        public Task Register(IWampRpcOperation operation, object options)
+        public Task Register(IWampRpcOperation operation, IDictionary<string, object> options)
         {
             Request request =
                 new Request(operation, mFormatter);

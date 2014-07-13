@@ -1,24 +1,20 @@
+using System.Collections.Generic;
 using WampSharp.V2.Rpc;
 
 namespace WampSharp.V2.Client
 {
-    public interface IWampRpcOperationInvokerProxy : IWampRpcOperationInvokerProxy<object>
+    public interface IWampRpcOperationInvokerProxy
     {
-         
-    }
+        void Invoke(IWampRpcOperationCallback caller, IDictionary<string, object> options, string procedure);
 
-    public interface IWampRpcOperationInvokerProxy<TMessage>
-    {
-        void Invoke(IWampRpcOperationCallback caller, TMessage options, string procedure);
+        void Invoke(IWampRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments);
 
-        void Invoke(IWampRpcOperationCallback caller, TMessage options, string procedure, TMessage[] arguments);
+        void Invoke(IWampRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments, IDictionary<string, object> argumentsKeywords);
 
-        void Invoke(IWampRpcOperationCallback caller, TMessage options, string procedure, TMessage[] arguments, TMessage argumentsKeywords);
+        void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure);
 
-        void Invoke(IWampRawRpcOperationCallback caller, TMessage options, string procedure);
+        void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments);
 
-        void Invoke(IWampRawRpcOperationCallback caller, TMessage options, string procedure, TMessage[] arguments);
-
-        void Invoke(IWampRawRpcOperationCallback caller, TMessage options, string procedure, TMessage[] arguments, TMessage argumentsKeywords);    
+        void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments, IDictionary<string, object> argumentsKeywords);             
     }
 }

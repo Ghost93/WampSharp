@@ -41,34 +41,34 @@ namespace WampSharp.V2.Client
             }
         }
 
-        public Task<long> Publish(object options)
+        public Task<long> Publish(IDictionary<string, object> options)
         {
             CheckDisposed();
 
             return mPublisher.Publish(this.TopicUri, options);
         }
 
-        public Task<long> Publish(object options, object[] arguments)
+        public Task<long> Publish(IDictionary<string, object> options, object[] arguments)
         {
             CheckDisposed();
 
             return mPublisher.Publish(this.TopicUri, options, arguments);
         }
 
-        public Task<long> Publish(object options, object[] arguments, object argumentKeywords)
+        public Task<long> Publish(IDictionary<string, object> options, object[] arguments, IDictionary<string, object> argumentKeywords)
         {
             CheckDisposed();
 
             return mPublisher.Publish(this.TopicUri, options, arguments, argumentKeywords);
         }
 
-        public Task<IDisposable> Subscribe(IWampTopicSubscriber subscriber, object options)
+        public Task<IDisposable> Subscribe(IWampTopicSubscriber subscriber, IDictionary<string, object> options)
         {
             RawSubscriberAdapter rawSubscriberAdapter = new RawSubscriberAdapter(subscriber);
             return Subscribe(rawSubscriberAdapter, options);
         }
 
-        public Task<IDisposable> Subscribe(IWampRawTopicSubscriber subscriber, object options)
+        public Task<IDisposable> Subscribe(IWampRawTopicSubscriber subscriber, IDictionary<string, object> options)
         {
             lock (mLock)
             {

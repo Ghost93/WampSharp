@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WampSharp.V2.Client;
 
 namespace WampSharp.V2
@@ -7,6 +8,9 @@ namespace WampSharp.V2
     internal class WampClientSubject : WampSubject
     {
         private readonly IWampTopicProxy mTopic;
+
+        private static readonly IDictionary<string, object> EmptyOptions =
+            new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
 
         public WampClientSubject(IWampTopicProxy topic)
         {
@@ -30,7 +34,7 @@ namespace WampSharp.V2
 
         public override IDisposable Subscribe(IObserver<IWampSerializedEvent> observer)
         {
-            return mTopic.Subscribe(new RawSubscriber(observer), new {});
+            return mTopic.Subscribe(new RawSubscriber(observer), EmptyOptions);
         }
     }
 }

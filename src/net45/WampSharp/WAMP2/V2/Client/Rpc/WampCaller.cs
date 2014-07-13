@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using WampSharp.Core.Serialization;
 using WampSharp.V2.Core;
@@ -20,7 +21,7 @@ namespace WampSharp.V2.Client
         }
 
         public void Invoke(IWampRpcOperationCallback caller,
-                           object options,
+                           IDictionary<string, object> options,
                            string procedure)
         {
             RawCallbackAdpater adapter = new RawCallbackAdpater(caller);
@@ -29,7 +30,7 @@ namespace WampSharp.V2.Client
         }
 
         public void Invoke(IWampRpcOperationCallback caller,
-                           object options,
+                           IDictionary<string, object> options,
                            string procedure,
                            object[] arguments)
         {
@@ -39,17 +40,17 @@ namespace WampSharp.V2.Client
         }
 
         public void Invoke(IWampRpcOperationCallback caller,
-                           object options,
+                           IDictionary<string, object> options,
                            string procedure,
                            object[] arguments,
-                           object argumentsKeywords)
+                           IDictionary<string, object> argumentsKeywords)
         {
             RawCallbackAdpater adapter = new RawCallbackAdpater(caller);
 
             Invoke(adapter, options, procedure, arguments, argumentsKeywords);
         }
 
-        public void Invoke(IWampRawRpcOperationCallback caller, object options, string procedure)
+        public void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure)
         {
             CallDetails callDetails = new CallDetails(caller, options, procedure);
 
@@ -58,7 +59,7 @@ namespace WampSharp.V2.Client
             mProxy.Call(requestId, options, procedure);
         }
 
-        public void Invoke(IWampRawRpcOperationCallback caller, object options, string procedure, object[] arguments)
+        public void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments)
         {
             CallDetails callDetails = new CallDetails(caller, options, procedure, arguments);
 
@@ -67,14 +68,14 @@ namespace WampSharp.V2.Client
             mProxy.Call(requestId, options, procedure, arguments);
         }
 
-        public void Invoke(IWampRawRpcOperationCallback caller, object options, string procedure, object[] arguments,
-                           object argumentsKeywords)
+        public void Invoke(IWampRawRpcOperationCallback caller, IDictionary<string, object> options, string procedure, object[] arguments,
+                           IDictionary<string, object> argumentsKeywords)
         {
             CallDetails callDetails = new CallDetails(caller, options, procedure, arguments, argumentsKeywords);
 
             long requestId = RegisterCall(callDetails);
 
-            mProxy.Call(requestId, options, procedure, arguments);
+            mProxy.Call(requestId, options, procedure, arguments, argumentsKeywords);
         }
 
         public void Result(long requestId, TMessage details)
